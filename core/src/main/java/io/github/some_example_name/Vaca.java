@@ -1,5 +1,5 @@
 package io.github.some_example_name;
-
+/* Esta es la clase lluvia original. Se cambió a vaca para el tema texturas y todo eso. No se toca tampoco.*/
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;

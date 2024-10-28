@@ -1,5 +1,7 @@
 package io.github.some_example_name;
 
+/*No se toca esto, todo bien*/
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
