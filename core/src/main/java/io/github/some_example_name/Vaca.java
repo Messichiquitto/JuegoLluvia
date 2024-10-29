@@ -43,7 +43,7 @@ public class Vaca {
 	      vaca.height = 64;
 	      rainDropsPos.add(vaca);
 	      // ver el tipo de vaca
-	      if (MathUtils.random(1,10)<5)	    	  
+	      if (MathUtils.random(1,10)<4)	    	  
 	         rainDropsType.add(1);
 	      else 
 	    	 rainDropsType.add(2);

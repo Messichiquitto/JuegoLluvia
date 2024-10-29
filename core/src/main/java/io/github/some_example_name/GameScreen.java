@@ -85,14 +85,14 @@ public class GameScreen implements Screen {
 
         tiempoParaAparicion += delta; 
 
-
+        /*
         if (tiempoParaAparicion >= tiempoEntreApariciones) {
             EnemigoCriatura enemigo = new EnemigoCriatura(3, 3);
             enemigo.setPosicion(Gdx.graphics.getWidth() / 2 - enemigo.getWidth() / 2, -enemigo.getHeight());;
             tiempoParaAparicion = 0; 
         }
 
-/*Acá está la caga, donde dice EnemigoCriatura y todo eso.*/
+/*Acá está la caga, donde dice EnemigoCriatura y todo eso.
         for (Interactuable enemigo : enemigos) {
             if (enemigo instanceof EnemigoCriatura) {
                 EnemigoCriatura enemigoCriatura = (EnemigoCriatura) enemigo;
@@ -105,6 +105,7 @@ public class GameScreen implements Screen {
             }
         }
 
+        */
         // Dibujar al UFO y la lluvia
         ufo.dibujar(batch);
         lluvia.actualizarDibujoLluvia(batch);
@@ -138,10 +139,12 @@ public class GameScreen implements Screen {
     @Override
     public void dispose() {
         lluvia.destruir();
+        /*
         for (Interactuable enemigo : enemigos) {
             if (enemigo instanceof EnemigoCriatura) {
                 ((EnemigoCriatura) enemigo).dispose();
             }
         }
+        */
     }
 }

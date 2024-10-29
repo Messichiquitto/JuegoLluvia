@@ -16,7 +16,7 @@ public class GameLluviaMenu extends Game {
     private int higherScore;
     private boolean asteroidesActivos;
 
-    private EnemigoCriatura enemigo;
+    //private EnemigoCriatura enemigo;
     private Ufo ufo; // Instancia del Ufo
     private boolean juegoEnCurso;
 
@@ -30,10 +30,11 @@ public class GameLluviaMenu extends Game {
         Sound sonidoUfo = Gdx.audio.newSound(Gdx.files.internal("sonidoAbduction.mp3"));
         ufo = new Ufo(texturaUfo, sonidoUfo);
 
+        /*
         // Inicializar el enemigo
         enemigo = new EnemigoCriatura(3, 3);
         enemigo.setPosicion(200, Gdx.graphics.getHeight());
-
+		*/
         this.setScreen(new MainMenuScreen(this));
         juegoEnCurso = false;
     }
@@ -45,8 +46,8 @@ public class GameLluviaMenu extends Game {
         batch.begin();
         if (juegoEnCurso) {
             ufo.dibujar(batch); // Dibuja el Ufo
-            enemigo.dibujar(batch); // Dibuja el enemigo
-            enemigo.actualizar(Gdx.graphics.getDeltaTime()); 
+            //enemigo.dibujar(batch); // Dibuja el enemigo
+            //enemigo.actualizar(Gdx.graphics.getDeltaTime()); 
         }
         batch.end();
     }
@@ -57,11 +58,11 @@ public class GameLluviaMenu extends Game {
     public void dispose() {
         batch.dispose();
         font.dispose();
-        if (enemigo != null) {
-            enemigo.dispose(); 
-        }
+        //if (enemigo != null) {
+          //  enemigo.dispose(); 
+        //}
         if (ufo != null) {
-            ufo.dispose(); 
+           // ufo.dispose(); 
         }
     }
 
@@ -87,7 +88,7 @@ public class GameLluviaMenu extends Game {
 
     public void iniciarJuego() {
         juegoEnCurso = true;
-        enemigo.setPosicion(200, Gdx.graphics.getHeight());
+        //enemigo.setPosicion(200, Gdx.graphics.getHeight());
     }
 }
 
