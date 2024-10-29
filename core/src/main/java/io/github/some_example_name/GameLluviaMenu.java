@@ -1,8 +1,5 @@
 package io.github.some_example_name;
 
-/* Acá hay varios errores, pero de sintaxis, porque borre algunas cosas de esta clase pero no en otras.
-En si esto es el menú donde se crean y cargan los png, los sonidos, etc.
- */
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -30,11 +27,6 @@ public class GameLluviaMenu extends Game {
         Sound sonidoUfo = Gdx.audio.newSound(Gdx.files.internal("sonidoAbduction.mp3"));
         ufo = new Ufo(texturaUfo, sonidoUfo);
 
-        /*
-        // Inicializar el enemigo
-        enemigo = new EnemigoCriatura(3, 3);
-        enemigo.setPosicion(200, Gdx.graphics.getHeight());
-		*/
         this.setScreen(new MainMenuScreen(this));
         juegoEnCurso = false;
     }
@@ -45,24 +37,16 @@ public class GameLluviaMenu extends Game {
 
         batch.begin();
         if (juegoEnCurso) {
-            ufo.dibujar(batch); // Dibuja el Ufo
-            //enemigo.dibujar(batch); // Dibuja el enemigo
-            //enemigo.actualizar(Gdx.graphics.getDeltaTime()); 
+            ufo.dibujar(batch); // Dibuja el Ufo 
         }
         batch.end();
     }
-
-
 
     @Override
     public void dispose() {
         batch.dispose();
         font.dispose();
-        //if (enemigo != null) {
-          //  enemigo.dispose(); 
-        //}
         if (ufo != null) {
-           // ufo.dispose(); 
         }
     }
 
@@ -88,7 +72,6 @@ public class GameLluviaMenu extends Game {
 
     public void iniciarJuego() {
         juegoEnCurso = true;
-        //enemigo.setPosicion(200, Gdx.graphics.getHeight());
     }
 }
 

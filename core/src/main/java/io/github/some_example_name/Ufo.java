@@ -20,11 +20,15 @@ public class Ufo {
     private boolean herido = false;
     private int tiempoHeridoMax = 50;
     private int tiempoHerido;
+    private int segundosMovimiento; // Duración del powerUp
+    private boolean movimiento;
+    private Sound sonidoZipZip;
+    private boolean powerUpZipZip;
 
     public Ufo(Texture tex, Sound ss) {
         ufoImage = tex;
         sonidoHerido = ss;
-        crear(); // Llama al método crear desde el constructor
+        crear();
     }
 
     //--------------------------------------------------------
@@ -67,6 +71,21 @@ public class Ufo {
             tiempoHerido--;
             if (tiempoHerido <= 0) herido = false;
         }
+        if (movimiento) {
+        	powerUpZipZip = false;
+        	if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            	ufo.x += velx * Gdx.graphics.getDeltaTime();
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            	ufo.x += velx * Gdx.graphics.getDeltaTime();
+            }
+        	segundosMovimiento -= Gdx.graphics.getDeltaTime();
+        	if (segundosMovimiento <= 0) {
+        		movimiento = false;
+        		sonidoZipZip.stop();
+        		ufo.y = 465 - 64;
+        	}
+        }
     } 
     //--------------------------------------------------------	   	   
     public void actualizarMovimiento() { 
@@ -82,8 +101,26 @@ public class Ufo {
         return herido;
     }
     //--------------------------------------------------------
-    
     public Rectangle getRectangulo() {
         return ufo; // Devuelve el área de colisión del UFO
     }
+    //--------------------------------------------------------
+    public void activarMovimiento(int segundos) {
+    	segundosMovimiento = segundos;
+    	movimiento = true;
+    	sonidoZipZip = Gdx.audio.newSound(Gdx.files.internal("sonidoZipZip.mp3"));
+    	sonidoZipZip.play();
+    }
+    //--------------------------------------------------------
+    public void interaccionZorro() {
+    	powerUpZipZip = true;
+    	if (powerUpZipZip) {
+    		if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+    			this.activarMovimiento(10);
+    			sonidoHerido.play();
+    		}
+    	}
+    }
+    //--------------------------------------------------------
 }
+
