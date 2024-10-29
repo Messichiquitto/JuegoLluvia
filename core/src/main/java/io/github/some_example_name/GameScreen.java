@@ -24,7 +24,6 @@ public class GameScreen implements Screen {
         this.font = game.getFont();
         
         Sound hurtSound = Gdx.audio.newSound(Gdx.files.internal("hurt.mp3"));
-        hurtSound.play(0.5f);
         ufo = new Ufo(new Texture(Gdx.files.internal("ufo.png")), hurtSound);
         
         //Texture vaca = new Texture(Gdx.files.internal("vaca.png"));
@@ -64,7 +63,7 @@ public class GameScreen implements Screen {
         
         if (!ufo.estaHerido()) {
             // Movimiento del UFO desde teclado
-            ufo.actualizarMovimiento();     
+            ufo.actualizarMovimiento();
             // Caída de la lluvia 
             if (!oleada.actualizarMovimiento(ufo)) {
                 // Actualizar HigherScore

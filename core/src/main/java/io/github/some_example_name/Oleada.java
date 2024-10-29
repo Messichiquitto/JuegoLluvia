@@ -41,9 +41,17 @@ public class Oleada {
 	//--------------------------------------------------------------
 	private void crearPersonajes() {
 		double probabilidad = MathUtils.random(0f, 100f);
-		if (probabilidad <= 10) {
+		if (probabilidad <= 7) {
 			PersonajeZorro zorro = new PersonajeZorro(MathUtils.random(0, 800 - 64), 0, 64, 64);
 			personajesPos.add(zorro);
+		}
+		if (probabilidad <= 10 && probabilidad > 7) {
+			VacaDorada vacaDorada = new VacaDorada(MathUtils.random(0, 800 - 64), 0, 64, 64);
+			personajesPos.add(vacaDorada);
+		}
+		if (probabilidad <= 12 && probabilidad >= 10) {
+			Yunque yunque = new Yunque(MathUtils.random(0, 800 - 64), 0, 64, 64);
+			personajesPos.add(yunque);
 		}
 		else {
 			crearPrincipales();
@@ -80,7 +88,7 @@ public class Oleada {
 		  dibujoPersonaje.dibujar(batch);
 	  }
    }
-   //--------------------------------------------------------------
+   //----------------------------------------------------------------
    public void destruir() {
       dropSound.dispose();
       rainMusic.dispose();

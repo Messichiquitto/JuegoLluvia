@@ -22,15 +22,14 @@ public class Ufo {
     private int tiempoHerido;
     private int segundosMovimiento; // Duración del powerUp
     private boolean movimiento;
-    private Sound sonidoZipZip;
-    private boolean powerUpZipZip;
-
+    private Sound dashUfo;
+    private boolean powerUpDash;
+    
     public Ufo(Texture tex, Sound ss) {
         ufoImage = tex;
         sonidoHerido = ss;
         crear();
     }
-
     //--------------------------------------------------------
     public int getVidas() {
         return vidas;
@@ -63,38 +62,61 @@ public class Ufo {
         sonidoHerido.play();
     }
     //--------------------------------------------------------
+    public void instaKill() {
+    	vidas -= 50;
+    }
+    //--------------------------------------------------------
     public void dibujar(SpriteBatch batch) {
-        if (!herido)  
-            batch.draw(ufoImage, ufo.x, ufo.y);
+        if (!herido)  {
+            if (powerUpDash) {
+            	batch.draw(new Texture(Gdx.files.internal("ufoBuff.png")), ufo.x, ufo.y);
+            } else {
+        		batch.draw(ufoImage, ufo.x, ufo.y);
+        	}
+        }
         else {
-            batch.draw(ufoImage, ufo.x, ufo.y + MathUtils.random(-5, 5));
+        	if (powerUpDash) {
+        		batch.draw(new Texture(Gdx.files.internal("ufoBuff.png")), ufo.x, ufo.y + MathUtils.random(-5, 5));
+        	}
+        	else {
+        		batch.draw(ufoImage, ufo.x, ufo.y + MathUtils.random(-5, 5));
+        	}
             tiempoHerido--;
             if (tiempoHerido <= 0) herido = false;
         }
-        if (movimiento) {
-        	powerUpZipZip = false;
-        	if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            	ufo.x += velx * Gdx.graphics.getDeltaTime();
-            }
-            if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            	ufo.x += velx * Gdx.graphics.getDeltaTime();
-            }
-        	segundosMovimiento -= Gdx.graphics.getDeltaTime();
-        	if (segundosMovimiento <= 0) {
-        		movimiento = false;
-        		sonidoZipZip.stop();
-        		ufo.y = 465 - 64;
-        	}
+        	
+        if (powerUpDash && Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+        	activarMovimiento(10);
+        	powerUpDash = false;
         }
+        
+        if (movimiento) {
+        	batch.draw(new Texture(Gdx.files.internal("ufoBuff.png")), ufo.x, ufo.y);
+        	actualizarMovimiento();
+        }
+        limitarMovimiento();
     } 
-    //--------------------------------------------------------	   	   
-    public void actualizarMovimiento() { 
-        // movimiento desde teclado
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) ufo.x -= velx * Gdx.graphics.getDeltaTime();
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) ufo.x += velx * Gdx.graphics.getDeltaTime();
-        // que no se salga de los bordes izq y der
+    //--------------------------------------------------------
+    private void limitarMovimiento() {
         if (ufo.x < 0) ufo.x = 0;
         if (ufo.x > 800 - 64) ufo.x = 800 - 64;
+        if (ufo.y < 0) ufo.y = 0;
+        if (ufo.y > 480 - 64) ufo.y = 480 - 64;
+    }
+    //--------------------------------------------------------	   	   
+    public void actualizarMovimiento() { 
+    	if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) ufo.x -= velx * Gdx.graphics.getDeltaTime();
+		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) ufo.x += velx * Gdx.graphics.getDeltaTime();
+
+    	if (movimiento) {
+    		if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) ufo.x -= velx * Gdx.graphics.getDeltaTime();
+    		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) ufo.x += velx * Gdx.graphics.getDeltaTime();
+
+    		segundosMovimiento -= Gdx.graphics.getDeltaTime();
+    		if (segundosMovimiento <= 0) {
+    			movimiento = false; // Termina el movimiento
+    		}
+    	}
     }
     //--------------------------------------------------------
     public boolean estaHerido() {
@@ -108,18 +130,12 @@ public class Ufo {
     public void activarMovimiento(int segundos) {
     	segundosMovimiento = segundos;
     	movimiento = true;
-    	sonidoZipZip = Gdx.audio.newSound(Gdx.files.internal("sonidoZipZip.mp3"));
-    	sonidoZipZip.play();
+    	dashUfo = Gdx.audio.newSound(Gdx.files.internal("dashUfo.mp3"));
+    	dashUfo.play();
     }
     //--------------------------------------------------------
     public void interaccionZorro() {
-    	powerUpZipZip = true;
-    	if (powerUpZipZip) {
-    		if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-    			this.activarMovimiento(10);
-    			sonidoHerido.play();
-    		}
-    	}
+    	powerUpDash = true;
     }
     //--------------------------------------------------------
 }
