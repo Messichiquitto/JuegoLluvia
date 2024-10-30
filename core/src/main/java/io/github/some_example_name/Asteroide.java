@@ -3,6 +3,7 @@ package io.github.some_example_name;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Asteroide extends Personajes {
 	private Sound hurt;
@@ -13,11 +14,18 @@ public class Asteroide extends Personajes {
 	}
 	
 	@Override
+    public void dibujar(SpriteBatch batch) {
+		batch.draw(getTextura(), getArea().x, getArea().y);
+    }
+	
+	@Override
 	public boolean touch(Ufo ufo) {
         if (super.touch(ufo)) {
-            ufo.damage();
-            hurt.play(0.5f);
-            return true; // Retorna true si ha tocado al UFO
+            if(ufo.damage()) {
+            	hurt.play(0.5f);
+                return true; // Retorna true si ha tocado al UFO
+            }
+            return true;
         }
         return false; // Retorna false si no ha tocado al UFO
     }

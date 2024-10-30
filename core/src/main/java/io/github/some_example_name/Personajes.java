@@ -24,10 +24,12 @@ public abstract class Personajes {
     	return area;
     }
     
-    public void dibujar(SpriteBatch batch) {
-    	batch.draw(textura, area.x, area.y);
-    }
+    public abstract void dibujar(SpriteBatch batch);
     
+    public Texture getTextura() {
+    	return textura;
+    }
+   
     public boolean touch(Ufo ufo) {
     	return area.overlaps(ufo.getArea());
     }

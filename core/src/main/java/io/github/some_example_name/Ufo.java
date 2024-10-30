@@ -20,10 +20,14 @@ public class Ufo {
     private boolean herido = false;
     private int tiempoHeridoMax = 50;
     private int tiempoHerido;
-    private int segundosMovimiento; // Duración del powerUp
+    private int segundosMovimiento; // Duracion del powerUp
     private boolean movimiento;
     private Sound dashUfo;
+    private Sound alienZip;
     private boolean powerUpDash;
+    private boolean powerUpAlien;
+    private boolean invulnerable;
+    private int segundosInvulnerable;
     
     public Ufo(Texture tex, Sound ss) {
         ufoImage = tex;
@@ -55,11 +59,15 @@ public class Ufo {
         ufo.height = 64;
     }
     //--------------------------------------------------------
-    public void damage() {
-        vidas--;
-        herido = true;
-        tiempoHerido = tiempoHeridoMax;
-        sonidoHerido.play();
+    public boolean damage() {
+    	if(!invulnerable) {
+    		vidas--;
+            herido = true;
+            tiempoHerido = tiempoHeridoMax;
+            sonidoHerido.play();
+            return true;
+    	}
+    	return false;
     }
     //--------------------------------------------------------
     public void instaKill() {
@@ -67,27 +75,42 @@ public class Ufo {
     }
     //--------------------------------------------------------
     public void dibujar(SpriteBatch batch) {
-        if (!herido)  {
-            if (powerUpDash) {
-            	batch.draw(new Texture(Gdx.files.internal("ufoBuff.png")), ufo.x, ufo.y);
-            } else {
-        		batch.draw(ufoImage, ufo.x, ufo.y);
+        if(invulnerable) {
+        	batch.draw(new Texture(Gdx.files.internal("ufoBuff.png")), ufo.x, ufo.y);
+        	segundosInvulnerable -= Gdx.graphics.getDeltaTime();
+        	if(segundosInvulnerable <= 0) {
+        		invulnerable = false;
         	}
         }
         else {
-        	if (powerUpDash) {
-        		batch.draw(new Texture(Gdx.files.internal("ufoBuff.png")), ufo.x, ufo.y + MathUtils.random(-5, 5));
-        	}
-        	else {
-        		batch.draw(ufoImage, ufo.x, ufo.y + MathUtils.random(-5, 5));
-        	}
-            tiempoHerido--;
-            if (tiempoHerido <= 0) herido = false;
+        	if (!herido)  {
+                if (powerUpDash  || powerUpAlien) {
+                	batch.draw(new Texture(Gdx.files.internal("ufoBuff.png")), ufo.x, ufo.y);
+                } else {
+            		batch.draw(ufoImage, ufo.x, ufo.y);
+            	}
+            }
+            else {
+            	if (powerUpDash || powerUpAlien) {
+            		batch.draw(new Texture(Gdx.files.internal("ufoBuff.png")), ufo.x, ufo.y + MathUtils.random(-5, 5));
+            	}
+            	else {
+            		batch.draw(ufoImage, ufo.x, ufo.y + MathUtils.random(-5, 5));
+            	}
+                tiempoHerido--;
+                if (tiempoHerido <= 0) herido = false;
+            }
         }
         	
-        if (powerUpDash && Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-        	activarMovimiento(10);
-        	powerUpDash = false;
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+        	if(powerUpDash) {
+        		activarMovimiento(10);
+            	powerUpDash = false;
+        	}
+        	else if(powerUpAlien) {
+        		activarInvulnerabilidad(100);
+        		powerUpAlien = false;
+        	}
         }
         
         if (movimiento) {
@@ -135,8 +158,22 @@ public class Ufo {
     }
     //--------------------------------------------------------
     public void interaccionZorro() {
-    	powerUpDash = true;
+    	if(!powerUpAlien) {
+    		powerUpDash = true;
+    	}
     }
     //--------------------------------------------------------
+    public void interaccionAlien() {
+    	if(!powerUpDash) {
+    		powerUpAlien = true;
+    	}
+    }
+    //--------------------------------------------------------
+    private void activarInvulnerabilidad(int segundos) {
+        invulnerable = true; // Activa la invulnerabilidad
+        segundosInvulnerable = segundos;
+        alienZip = Gdx.audio.newSound(Gdx.files.internal("sonidoZipZip.mp3"));
+        alienZip.play();
+    }
 }
 

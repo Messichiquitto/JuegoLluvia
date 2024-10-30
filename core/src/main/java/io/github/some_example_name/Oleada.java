@@ -53,6 +53,10 @@ public class Oleada {
 			Yunque yunque = new Yunque(MathUtils.random(0, 800 - 64), 0, 64, 64);
 			personajesPos.add(yunque);
 		}
+		if (probabilidad <= 15 && probabilidad > 12) {
+			AlienZipZip alien = new AlienZipZip(MathUtils.random(0, 800 - 64), 0, 64, 64);
+			personajesPos.add(alien);
+		}
 		else {
 			crearPrincipales();
 		}
