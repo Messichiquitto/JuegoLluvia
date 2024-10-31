@@ -29,5 +29,4 @@ public class Asteroide extends Personajes {
         }
         return false; // Retorna false si no ha tocado al UFO
     }
-
 }
