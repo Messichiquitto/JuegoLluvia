@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class AlienZipZip extends Personajes implements Interactuable {
-    private Sound zipzip;
+    private Sound pickUpSound;
     private Texture texturaAlienZipZip2;
     private float stateTime;
     private Texture texturaActual;
@@ -17,7 +17,7 @@ public class AlienZipZip extends Personajes implements Interactuable {
         texturaActual = new Texture(Gdx.files.internal("alienZipZip.png"));
         texturaAlienZipZip = new Texture(Gdx.files.internal("alienZipZip.png"));
         texturaAlienZipZip2 = new Texture(Gdx.files.internal("alienZipZip2.png"));
-        zipzip = Gdx.audio.newSound(Gdx.files.internal("sonidoVacaDorada.mp3"));
+        pickUpSound = Gdx.audio.newSound(Gdx.files.internal("pickUpSound.mp3"));
 
     }
 
@@ -33,7 +33,7 @@ public class AlienZipZip extends Personajes implements Interactuable {
             } else {
                 texturaActual = texturaAlienZipZip;
             }
-            stateTime = 0; // Reiniciar el tiempo de estado para el próximo cambio
+            stateTime = 0; // Reiniciar el tiempo de estado para el prÃ³ximo cambio
         }
 
         // Dibujar la textura actual
@@ -44,7 +44,7 @@ public class AlienZipZip extends Personajes implements Interactuable {
     @Override
     public boolean touch(Ufo ufo) {
         if (super.touch(ufo)) {
-            zipzip.play(0.5f);
+            pickUpSound.play(0.5f);
             return true; // Retorna true si ha tocado al UFO
         }
         return false; // Retorna false si no ha tocado al UFO
