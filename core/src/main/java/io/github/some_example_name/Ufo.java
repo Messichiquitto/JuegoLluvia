@@ -20,19 +20,28 @@ public class Ufo {
     private boolean herido = false;
     private int tiempoHeridoMax = 50;
     private int tiempoHerido;
-    private int segundosMovimiento; // Duracion del powerUp
+    private int segundosMovimiento; //Duracion del powerUp
     private boolean movimiento;
     private Sound dashUfo;
     private Sound alienZip;
+    private Sound gatoLife;
     private boolean powerUpDash;
     private boolean powerUpAlien;
     private boolean invulnerable;
     private int segundosInvulnerable;
+    private boolean controlReversa;
+    private int segundosReversa;
+    private boolean gatoVida;
     
+    //--------------------------------------------------------
     public Ufo(Texture tex, Sound ss) {
         ufoImage = tex;
         sonidoHerido = ss;
         crear();
+    }
+    //--------------------------------------------------------
+    public void setVidas(int vidas) {
+    	this.vidas = vidas;
     }
     //--------------------------------------------------------
     public int getVidas() {
@@ -71,22 +80,35 @@ public class Ufo {
     }
     //--------------------------------------------------------
     public void instaKill() {
-    	vidas -= 50;
+    	vidas -= 100;
     }
     //--------------------------------------------------------
     public void dibujar(SpriteBatch batch) {
-        if(invulnerable) {
+        
+    	if (invulnerable) {
         	batch.draw(new Texture(Gdx.files.internal("ufoBuff.png")), ufo.x, ufo.y);
         	segundosInvulnerable -= Gdx.graphics.getDeltaTime();
         	if(segundosInvulnerable <= 0) {
         		invulnerable = false;
         	}
         }
+    	
         else {
         	if (!herido)  {
-                if (powerUpDash  || powerUpAlien) {
-                	batch.draw(new Texture(Gdx.files.internal("ufoBuff.png")), ufo.x, ufo.y);
-                } else {
+                if (powerUpDash || powerUpAlien) {
+                	if (controlReversa) {
+                		batch.draw(new Texture(Gdx.files.internal("ufolocoBuff.png")), ufo.x, ufo.y + MathUtils.random(-5, 5));
+                	}
+                	else
+                		batch.draw(new Texture(Gdx.files.internal("ufoBuff.png")), ufo.x, ufo.y);
+                }
+                else if (controlReversa) {
+                	batch.draw(new Texture(Gdx.files.internal("ufoLoco.png")), ufo.x, ufo.y + MathUtils.random(-5, 5));
+                }
+                else if (gatoVida) {
+                	batch.draw(new Texture(Gdx.files.internal("ufoDoctor.png")), ufo.x, ufo.y);
+                }
+                else {
             		batch.draw(ufoImage, ufo.x, ufo.y);
             	}
             }
@@ -101,7 +123,7 @@ public class Ufo {
                 if (tiempoHerido <= 0) herido = false;
             }
         }
-        	
+    	
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
         	if(powerUpDash) {
         		activarMovimiento(10);
@@ -110,6 +132,12 @@ public class Ufo {
         	else if(powerUpAlien) {
         		activarInvulnerabilidad(100);
         		powerUpAlien = false;
+        	}
+        	else if(gatoVida) {
+        		vidas += 1;
+        		gatoLife = Gdx.audio.newSound(Gdx.files.internal("gato.mp3"));
+                gatoLife.play(0.5f);
+        		gatoVida = false;
         	}
         }
         
@@ -128,18 +156,43 @@ public class Ufo {
     }
     //--------------------------------------------------------	   	   
     public void actualizarMovimiento() { 
-    	if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) ufo.x -= velx * Gdx.graphics.getDeltaTime();
-		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) ufo.x += velx * Gdx.graphics.getDeltaTime();
-
-    	if (movimiento) {
-    		if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) ufo.x -= velx * Gdx.graphics.getDeltaTime();
-    		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) ufo.x += velx * Gdx.graphics.getDeltaTime();
-
+    	//if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) ufo.x -= velx * Gdx.graphics.getDeltaTime();
+		//if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) ufo.x += velx * Gdx.graphics.getDeltaTime();
+		
+		if (controlReversa) {
+			if (movimiento) {
+	    		if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) ufo.x += (velx * Gdx.graphics.getDeltaTime()) * 1.5;
+	    		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) ufo.x -= (velx * Gdx.graphics.getDeltaTime()) * 1.5;
+	    	
+	    		segundosMovimiento -= Gdx.graphics.getDeltaTime();
+	    		if (segundosMovimiento <= 0) {
+	    			movimiento = false; // Termina el movimiento
+	    		}
+			}
+	    		
+			if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) ufo.x += velx * Gdx.graphics.getDeltaTime();
+	    	if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) ufo.x -= velx * Gdx.graphics.getDeltaTime();		
+	    	
+	    	segundosReversa -= Gdx.graphics.getDeltaTime();
+	    	if (segundosReversa <= 0) {
+	    		controlReversa = false;
+	    	}
+		}
+		
+		else if (movimiento) { //Este es el dash del powerUp
+    		if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) ufo.x -= (velx * Gdx.graphics.getDeltaTime()) * 1.5;
+    		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) ufo.x += (velx * Gdx.graphics.getDeltaTime()) * 1.5;
+    	
     		segundosMovimiento -= Gdx.graphics.getDeltaTime();
     		if (segundosMovimiento <= 0) {
     			movimiento = false; // Termina el movimiento
     		}
-    	}
+		}
+    	
+    	else { //Este es el movimiento de base
+       		if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) ufo.x -= velx * Gdx.graphics.getDeltaTime();
+       		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) ufo.x += velx * Gdx.graphics.getDeltaTime();
+       	}
     }
     //--------------------------------------------------------
     public boolean estaHerido() {
@@ -158,13 +211,13 @@ public class Ufo {
     }
     //--------------------------------------------------------
     public void interaccionZorro() {
-    	if(!powerUpAlien) {
+    	if(!powerUpAlien && !gatoVida) {
     		powerUpDash = true;
     	}
     }
     //--------------------------------------------------------
     public void interaccionAlien() {
-    	if(!powerUpDash) {
+    	if(!powerUpDash && !gatoVida) {
     		powerUpAlien = true;
     	}
     }
@@ -173,7 +226,22 @@ public class Ufo {
         invulnerable = true; // Activa la invulnerabilidad
         segundosInvulnerable = segundos;
         alienZip = Gdx.audio.newSound(Gdx.files.internal("sonidoZipZip.mp3"));
-        alienZip.play();
+        alienZip.play(0.5f);
     }
+    //--------------------------------------------------------
+    public void activarLocura(int segundos) {
+    	controlReversa = true;
+    	segundosReversa = segundos;
+    }
+    //--------------------------------------------------------
+    public void locura() {
+    	controlReversa = true;
+    }
+    //--------------------------------------------------------
+    public void interaccionGato() {
+    	if (!powerUpAlien && !powerUpDash) {
+    		gatoVida = true;
+    	}
+    }
+    //--------------------------------------------------------
 }
-
