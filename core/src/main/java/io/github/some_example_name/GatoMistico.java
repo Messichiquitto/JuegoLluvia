@@ -6,12 +6,14 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class GatoMistico extends Personajes implements Interactuable {
+public class GatoMistico extends Personajes implements Interactuable{
 	private Sound gatoSound;
+	private Interactuable estrategia;
 	
 	public GatoMistico(float x, float y, float ancho, float alto) {
 		super(x, y, ancho, alto, new Texture(Gdx.files.internal("gatoMistico.png")));
 		gatoSound = Gdx.audio.newSound(Gdx.files.internal("pickUpSound.mp3"));
+		this.estrategia = new GatoStrategy();
 	}
 	
 	@Override
@@ -27,9 +29,8 @@ public class GatoMistico extends Personajes implements Interactuable {
         }
         return false; // Retorna false si no ha tocado al UFO
     }
-    
+    @Override
     public void interactuar(Ufo ufo) {
-    	ufo.interaccionGato();
+    	estrategia.interactuar(ufo);
     }
-
 }

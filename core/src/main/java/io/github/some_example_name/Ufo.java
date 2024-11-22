@@ -82,7 +82,32 @@ public class Ufo {
     public void instaKill() {
     	vidas -= 100;
     }
+    //--------------------------------------------------------    
+    public boolean getPowerUpDash() {
+        return powerUpDash;
+    }
     //--------------------------------------------------------
+    public boolean getPowerUpAlien() {
+        return powerUpAlien;
+    }
+    //--------------------------------------------------------
+    public boolean getGatoVida() {
+        return gatoVida;
+    }
+    //--------------------------------------------------------    
+    public void setPowerUpDash(boolean activo) {
+        this.powerUpDash = activo;
+    }
+    //--------------------------------------------------------
+    public void setPowerUpAlien(boolean activo) {
+    	this.powerUpAlien = activo;
+    }
+    //--------------------------------------------------------
+    public void setGatoVida(boolean activo) {
+    	this.gatoVida = activo;
+    }
+    //--------------------------------------------------------
+    
     public void dibujar(SpriteBatch batch) {
         
     	if (invulnerable) {
@@ -210,18 +235,6 @@ public class Ufo {
     	dashUfo.play();
     }
     //--------------------------------------------------------
-    public void interaccionZorro() {
-    	if(!powerUpAlien && !gatoVida) {
-    		powerUpDash = true;
-    	}
-    }
-    //--------------------------------------------------------
-    public void interaccionAlien() {
-    	if(!powerUpDash && !gatoVida) {
-    		powerUpAlien = true;
-    	}
-    }
-    //--------------------------------------------------------
     private void activarInvulnerabilidad(int segundos) {
         invulnerable = true; // Activa la invulnerabilidad
         segundosInvulnerable = segundos;
@@ -236,12 +249,6 @@ public class Ufo {
     //--------------------------------------------------------
     public void locura() {
     	controlReversa = true;
-    }
-    //--------------------------------------------------------
-    public void interaccionGato() {
-    	if (!powerUpAlien && !powerUpDash) {
-    		gatoVida = true;
-    	}
     }
     //--------------------------------------------------------
 }

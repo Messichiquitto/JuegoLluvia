@@ -11,6 +11,7 @@ public class AlienZipZip extends Personajes implements Interactuable {
     private float stateTime;
     private Texture texturaActual;
     private Texture texturaAlienZipZip;
+    private Interactuable estrategia;
 
     public AlienZipZip(float x, float y, float ancho, float alto) {
         super(x, y, ancho, alto, new Texture(Gdx.files.internal("alienZipZip.png")));
@@ -18,6 +19,7 @@ public class AlienZipZip extends Personajes implements Interactuable {
         texturaAlienZipZip = new Texture(Gdx.files.internal("alienZipZip.png"));
         texturaAlienZipZip2 = new Texture(Gdx.files.internal("alienZipZip2.png"));
         pickUpSound = Gdx.audio.newSound(Gdx.files.internal("pickUpSound.mp3"));
+        this.estrategia = new AlienStrategy();
 
     }
 
@@ -51,6 +53,6 @@ public class AlienZipZip extends Personajes implements Interactuable {
     }
 
     public void interactuar(Ufo ufo) {
-        ufo.interaccionAlien();
+        estrategia.interactuar(ufo);
     }
 }

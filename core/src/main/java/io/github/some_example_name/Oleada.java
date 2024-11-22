@@ -41,27 +41,27 @@ public class Oleada {
 	//--------------------------------------------------------------
 	private void crearPersonajes() {
 		double probabilidad = MathUtils.random(0f, 100f);
-		if (probabilidad <= 10 && probabilidad < 15) {
+		if (probabilidad >= 0 && probabilidad < 5) {
 			PersonajeZorro zorro = new PersonajeZorro(MathUtils.random(0, 800 - 64), 0, 64, 64);
 			personajesPos.add(zorro);
 		}
-		if (probabilidad <= 1 && probabilidad < 5) {
+		if (probabilidad >= 5 && probabilidad < 7) {
 			VacaDorada vacaDorada = new VacaDorada(MathUtils.random(0, 800 - 64), 0, 64, 64);
 			personajesPos.add(vacaDorada);
 		}
-		if (probabilidad <= 3 && probabilidad < 6) {
+		if (probabilidad == 7) {
 			Yunque yunque = new Yunque(MathUtils.random(0, 800 - 64), 0, 64, 64);
 			personajesPos.add(yunque);
 		}
-		if (probabilidad <= 7 && probabilidad < 9) {
+		if (probabilidad >= 8 && probabilidad < 10) {
 			AlienZipZip alien = new AlienZipZip(MathUtils.random(0, 800 - 64), 0, 64, 64);
 			personajesPos.add(alien);
 		}
-		if (probabilidad <= 10 && probabilidad < 15) {
+		if (probabilidad >= 10 && probabilidad < 13) {
 			Doctor doctor = new Doctor(MathUtils.random(0, 800 - 64), 0, 64, 64);
 			personajesPos.add(doctor);
 		}
-		if (probabilidad <= 2) {
+		if (probabilidad >= 13 && probabilidad <15) {
 			GatoMistico gatoMistico = new GatoMistico(MathUtils.random(0, 800 - 64), 0, 64, 64);
 			personajesPos.add(gatoMistico);
 		}

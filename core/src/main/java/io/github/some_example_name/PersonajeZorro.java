@@ -12,6 +12,7 @@ public class PersonajeZorro extends Personajes implements Interactuable {
 	private float stateTime;
 	private Texture texturaActual;
 	private Texture texturaZorro2;
+	private Interactuable estrategia;
 
     public PersonajeZorro(float x, float y, float ancho, float alto) {
 		super(x, y, ancho, alto, new Texture(Gdx.files.internal("zorro.png")));
@@ -19,6 +20,7 @@ public class PersonajeZorro extends Personajes implements Interactuable {
 		texturaZorro = new Texture(Gdx.files.internal("zorro.png"));
         texturaZorro2 = new Texture(Gdx.files.internal("zorro2.png"));
 		zorroSound = Gdx.audio.newSound(Gdx.files.internal("pickUpSound.mp3"));
+		this.estrategia = new ZorroStrategy();
 	}
     
     @Override
@@ -46,6 +48,6 @@ public class PersonajeZorro extends Personajes implements Interactuable {
     }
     
     public void interactuar(Ufo ufo) {
-    	ufo.interaccionZorro();
+    	estrategia.interactuar(ufo);
     }
 }
