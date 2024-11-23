@@ -1,4 +1,4 @@
-package io.github.some_example_name;
+package personajes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -10,6 +10,8 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
+
+import io.github.some_example_name.Ufo;
 
 public abstract class Personajes {
     private Rectangle area;

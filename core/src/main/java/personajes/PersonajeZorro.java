@@ -1,10 +1,14 @@
-package io.github.some_example_name;
+package personajes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
+import io.github.some_example_name.Ufo;
+import strategy.Interactuable;
+import strategy.ZorroStrategy;
 
 public class PersonajeZorro extends Personajes implements Interactuable {
 	private Sound zorroSound;

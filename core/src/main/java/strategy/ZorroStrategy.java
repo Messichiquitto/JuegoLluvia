@@ -1,4 +1,6 @@
-package io.github.some_example_name;
+package strategy;
+
+import io.github.some_example_name.Ufo;
 
 public class ZorroStrategy implements Interactuable{
 	@Override

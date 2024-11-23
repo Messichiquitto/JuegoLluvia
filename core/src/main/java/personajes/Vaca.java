@@ -1,9 +1,11 @@
-package io.github.some_example_name;
+package personajes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
+import io.github.some_example_name.Ufo;
 
 public class Vaca extends Personajes {
 	private Sound sonidoAbduction;

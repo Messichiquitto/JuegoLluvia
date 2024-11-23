@@ -1,9 +1,13 @@
-package io.github.some_example_name;
+package personajes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
+import io.github.some_example_name.Ufo;
+import strategy.AlienStrategy;
+import strategy.Interactuable;
 
 public class AlienZipZip extends Personajes implements Interactuable {
     private Sound pickUpSound;

@@ -10,6 +10,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 
+import strategy.Interactuable;
+import strategy.NeutralStrategy;
+
 public class Ufo {
     private Rectangle ufo;
     private Texture ufoImage;
@@ -20,7 +23,7 @@ public class Ufo {
     private boolean herido = false;
     private int tiempoHeridoMax = 50;
     private int tiempoHerido;
-    private int segundosMovimiento; //Duracion del powerUp
+    private int segundosMovimiento;
     private boolean movimiento;
     private Sound dashUfo;
     private Sound alienZip;
@@ -32,11 +35,14 @@ public class Ufo {
     private boolean controlReversa;
     private int segundosReversa;
     private boolean gatoVida;
+    private Interactuable estrategiaActual;
     
     //--------------------------------------------------------
     public Ufo(Texture tex, Sound ss) {
         ufoImage = tex;
         sonidoHerido = ss;
+        estrategiaActual = new NeutralStrategy();
+        ejecutarInteraccion();
         crear();
     }
     //--------------------------------------------------------
@@ -107,7 +113,16 @@ public class Ufo {
     	this.gatoVida = activo;
     }
     //--------------------------------------------------------
-    
+    public void setEstrategia(Interactuable nuevaEstrategia) {
+    	this.estrategiaActual = nuevaEstrategia;
+    }
+    //--------------------------------------------------------
+    public void ejecutarInteraccion() {
+        if (estrategiaActual != null) {
+            estrategiaActual.interactuar(this);
+        }
+    }
+    //--------------------------------------------------------
     public void dibujar(SpriteBatch batch) {
         
     	if (invulnerable) {

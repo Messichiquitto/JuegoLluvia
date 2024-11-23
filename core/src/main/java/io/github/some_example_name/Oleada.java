@@ -10,6 +10,17 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 
+import personajes.AlienZipZip;
+import personajes.Asteroide;
+import personajes.Doctor;
+import personajes.GatoMistico;
+import personajes.PersonajeZorro;
+import personajes.Personajes;
+import personajes.Vaca;
+import personajes.VacaDorada;
+import personajes.Yunque;
+import strategy.Interactuable;
+
 public class Oleada {
 	private Array<Personajes> personajesPos;
     private long lastDropTime;
@@ -79,10 +90,7 @@ public class Oleada {
 		   personajesAux = personajesPos.get(i);
            personajesAux.getArea().y += 200 * Gdx.graphics.getDeltaTime();
            if (personajesAux.touch(ufo)) {
-        	   if (personajesAux instanceof Interactuable) {
-        		   Interactuable interactuableP = (Interactuable) personajesAux;
-        		   interactuableP.interactuar(ufo);
-        	   }
+        	   aplicarInteraccion(personajesAux, ufo);
         	   if (ufo.getVidas() <= 0) {
                    return false;
                }
@@ -94,24 +102,32 @@ public class Oleada {
    }
    //--------------------------------------------------------------
    public void actualizarDibujo(SpriteBatch batch) { 
-	   
-	  for (int i=0; i < personajesPos.size; i++ ) {
-		  Personajes dibujoPersonaje = personajesPos.get(i);
-		  dibujoPersonaje.dibujar(batch);
-	  }
-   }
+	   for (int i=0; i < personajesPos.size; i++ ) {
+		   Personajes dibujoPersonaje = personajesPos.get(i);
+		   dibujoPersonaje.dibujar(batch);
+		   }
+	}
+   
    //----------------------------------------------------------------
    public void destruir() {
-      dropSound.dispose();
-      rainMusic.dispose();
+	   dropSound.dispose();
+	   rainMusic.dispose();
    }
    //--------------------------------------------------------------
    public void pausar() {
-	  rainMusic.stop();
+	   rainMusic.stop();
    }
    //--------------------------------------------------------------
    public void continuar() {
-	  rainMusic.play();
+	   rainMusic.play();
+   }
+   //--------------------------------------------------------------
+   public void aplicarInteraccion(Personajes personaje, Ufo ufo) {
+	   if(personaje instanceof Interactuable) {
+		   Interactuable interactuableP = (Interactuable) personaje;
+		   ufo.setEstrategia(interactuableP);
+		   ufo.ejecutarInteraccion();
+	   }
    }
    //--------------------------------------------------------------
 }
