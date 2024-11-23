@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
+import abstractFactory.FabricaLvl1;
+import abstractFactory.PersonajeFactory;
 
 public class GameScreen implements Screen {
     final GameLluviaMenu game;
@@ -31,7 +33,8 @@ public class GameScreen implements Screen {
         Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("sonidoAbduction.mp3")); 
         Music rainMusic = Gdx.audio.newMusic(Gdx.files.internal("theme.mp3"));
         rainMusic.setVolume(0.075f);
-        oleada = new Oleada(dropSound, rainMusic);
+        PersonajeFactory fabricaLvl1 = new FabricaLvl1();
+        oleada = new Oleada(dropSound, rainMusic, fabricaLvl1);
         
         // Cámara
         camera = new OrthographicCamera();
