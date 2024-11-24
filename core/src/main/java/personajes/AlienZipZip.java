@@ -27,6 +27,7 @@ public class AlienZipZip extends Personajes implements Interactuable {
 
     }
 
+    /*
     @Override
     public void dibujar(SpriteBatch batch) {
         // Actualizar el tiempo de estado
@@ -45,8 +46,9 @@ public class AlienZipZip extends Personajes implements Interactuable {
         // Dibujar la textura actual
         batch.draw(texturaActual, getArea().x, getArea().y);
     }
-
-
+	*/
+    
+    /*
     @Override
     public boolean touch(Ufo ufo) {
         if (super.touch(ufo)) {
@@ -58,5 +60,39 @@ public class AlienZipZip extends Personajes implements Interactuable {
 
     public void interactuar(Ufo ufo) {
         estrategia.interactuar(ufo);
+    }
+    */
+    
+    public void interactuar(Ufo ufo) {
+        estrategia.interactuar(ufo);
+    }
+    
+    @Override
+    public void dibujar(SpriteBatch batch) {
+    	actualizarTextura();
+    	batch.draw(texturaActual, getArea().x, getArea().y, 47, 63);
+    }
+    
+    protected void actualizarTextura() {
+	    stateTime += Gdx.graphics.getDeltaTime();
+
+	    if (stateTime >= 0.3f) {
+	        if (texturaActual == texturaAlienZipZip) {
+	            texturaActual = texturaAlienZipZip2;
+	        } else {
+	            texturaActual = texturaAlienZipZip;
+	        }
+	        stateTime = 0;
+	    }
+	}
+    
+    @Override
+    public void realizarAccionEspecifica(Ufo ufo) {
+    	interactuar(ufo);
+    }
+    
+    @Override
+    protected Sound getSonido() {
+    	return pickUpSound;
     }
 }

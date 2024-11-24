@@ -1,7 +1,6 @@
 package personajes;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -11,30 +10,34 @@ import strategy.GatoStrategy;
 import strategy.Interactuable;
 
 public class GatoMistico extends Personajes implements Interactuable{
-	private Sound gatoSound;
-	private Interactuable estrategia;
-	
-	public GatoMistico(float x, float y, float ancho, float alto) {
-		super(x, y, ancho, alto, new Texture(Gdx.files.internal("gatoMistico.png")));
-		gatoSound = Gdx.audio.newSound(Gdx.files.internal("pickUpSound.mp3"));
-		this.estrategia = new GatoStrategy();
-	}
-	
-	@Override
+    private Sound gatoSound;
+    private Interactuable estrategia;
+
+    public GatoMistico(float x, float y, float ancho, float alto) {
+        super(x, y, ancho, alto, new Texture(Gdx.files.internal("gatoMistico.png")));
+        gatoSound = Gdx.audio.newSound(Gdx.files.internal("pickUpSound.mp3"));
+        this.estrategia = new GatoStrategy();
+    }
+
+    @Override
     public void dibujar(SpriteBatch batch) {
-		batch.draw(getTextura(), getArea().x, getArea().y);
+        batch.draw(getTextura(), getArea().x, getArea().y);
     }
-    
+
     @Override
-	public boolean touch(Ufo ufo) {
-        if (super.touch(ufo)) {
-            gatoSound.play(0.5f);
-            return true; // Retorna true si ha tocado al UFO
-        }
-        return false; // Retorna false si no ha tocado al UFO
+    public void realizarAccionEspecifica(Ufo ufo) {
+        estrategia.interactuar(ufo);
     }
+
     @Override
-    public void interactuar(Ufo ufo) {
-    	estrategia.interactuar(ufo);
+    protected Sound getSonido() {
+        return gatoSound;
     }
+
+	@Override
+	public void interactuar(Ufo ufo) {
+		estrategia.interactuar(ufo);
+		
+	}
+
 }

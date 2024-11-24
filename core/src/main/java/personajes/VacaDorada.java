@@ -22,6 +22,7 @@ public class VacaDorada extends Personajes {
 		sonidoVacaDorada = Gdx.audio.newSound(Gdx.files.internal("sonidoVacaDorada.mp3"));
 	}
 	
+	/*
 	@Override
 	public boolean touch(Ufo ufo) {
         //Se al método touch de Personajes para verificar si se tocan
@@ -33,7 +34,9 @@ public class VacaDorada extends Personajes {
         }
         return false; // Retorna false si no ha tocado al UFO
     }
+	*/
 	
+	/*
 	@Override
 	public void dibujar(SpriteBatch batch) {
 	    // Actualizar el tiempo de estado
@@ -52,5 +55,33 @@ public class VacaDorada extends Personajes {
 	    // Dibujar la textura actual
 	    batch.draw(texturaActual, getArea().x, getArea().y, 64, 39);
 	}
+	*/
+	@Override
+    public void dibujar(SpriteBatch batch) {
+        actualizarTextura();
+        batch.draw(texturaActual, getArea().x, getArea().y, 64, 39);
+    }
+	
+	protected void actualizarTextura() {
+	    stateTime += Gdx.graphics.getDeltaTime();
 
+	    if (stateTime >= 0.3f) {
+	        if (texturaActual == texturaVaca) {
+	            texturaActual = texturaVaca2;
+	        } else {
+	            texturaActual = texturaVaca;
+	        }
+	        stateTime = 0;
+	    }
+	}
+	
+	@Override
+	public void realizarAccionEspecifica(Ufo ufo) {
+		ufo.sumarPuntos(500);
+	}
+	
+	@Override
+	protected Sound getSonido() {
+		return sonidoVacaDorada;
+	}
 }

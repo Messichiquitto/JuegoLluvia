@@ -23,7 +23,7 @@ public class Ufo {
     private boolean herido = false;
     private int tiempoHeridoMax = 50;
     private int tiempoHerido;
-    private int segundosMovimiento;
+    private float segundosMovimiento;
     private boolean movimiento;
     private Sound dashUfo;
     private Sound alienZip;
@@ -31,9 +31,9 @@ public class Ufo {
     private boolean powerUpDash;
     private boolean powerUpAlien;
     private boolean invulnerable;
-    private int segundosInvulnerable;
+    private float segundosInvulnerable;
     private boolean controlReversa;
-    private int segundosReversa;
+    private float segundosReversa;
     private boolean gatoVida;
     private Interactuable estrategiaActual;
     
@@ -79,7 +79,7 @@ public class Ufo {
     		vidas--;
             herido = true;
             tiempoHerido = tiempoHeridoMax;
-            sonidoHerido.play();
+            //sonidoHerido.play();
             return true;
     	}
     	return false;
@@ -99,6 +99,10 @@ public class Ufo {
     //--------------------------------------------------------
     public boolean getGatoVida() {
         return gatoVida;
+    }
+    //--------------------------------------------------------    
+    public boolean getInvulnerabilidad() {
+    	return invulnerable;
     }
     //--------------------------------------------------------    
     public void setPowerUpDash(boolean activo) {
@@ -126,7 +130,7 @@ public class Ufo {
     public void dibujar(SpriteBatch batch) {
         
     	if (invulnerable) {
-        	batch.draw(new Texture(Gdx.files.internal("ufoBuff.png")), ufo.x, ufo.y);
+        	batch.draw(new Texture(Gdx.files.internal("ufoEnojado.png")), ufo.x, ufo.y);
         	segundosInvulnerable -= Gdx.graphics.getDeltaTime();
         	if(segundosInvulnerable <= 0) {
         		invulnerable = false;
@@ -139,8 +143,11 @@ public class Ufo {
                 	if (controlReversa) {
                 		batch.draw(new Texture(Gdx.files.internal("ufolocoBuff.png")), ufo.x, ufo.y + MathUtils.random(-5, 5));
                 	}
-                	else
+                	else if (powerUpDash)
                 		batch.draw(new Texture(Gdx.files.internal("ufoBuff.png")), ufo.x, ufo.y);
+                	else if (powerUpAlien) {
+                		batch.draw(new Texture(Gdx.files.internal("ufoEnojado.png")), ufo.x, ufo.y);
+                	}
                 }
                 else if (controlReversa) {
                 	batch.draw(new Texture(Gdx.files.internal("ufoLoco.png")), ufo.x, ufo.y + MathUtils.random(-5, 5));
@@ -153,7 +160,10 @@ public class Ufo {
             	}
             }
             else {
-            	if (powerUpDash || powerUpAlien) {
+            	if (powerUpAlien) {
+            		batch.draw(new Texture(Gdx.files.internal("ufoEnojado.png")), ufo.x, ufo.y + MathUtils.random(-5, 5));
+            	}
+            	else if (powerUpDash) {
             		batch.draw(new Texture(Gdx.files.internal("ufoBuff.png")), ufo.x, ufo.y + MathUtils.random(-5, 5));
             	}
             	else {
@@ -166,11 +176,11 @@ public class Ufo {
     	
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
         	if(powerUpDash) {
-        		activarMovimiento(10);
+        		activarMovimiento(0.3f);
             	powerUpDash = false;
         	}
         	else if(powerUpAlien) {
-        		activarInvulnerabilidad(100);
+        		activarInvulnerabilidad(3);
         		powerUpAlien = false;
         	}
         	else if(gatoVida) {
@@ -243,7 +253,7 @@ public class Ufo {
         return ufo; // Devuelve el área de colisión del UFO
     }
     //--------------------------------------------------------
-    public void activarMovimiento(int segundos) {
+    public void activarMovimiento(float segundos) {
     	segundosMovimiento = segundos;
     	movimiento = true;
     	dashUfo = Gdx.audio.newSound(Gdx.files.internal("dashUfo.mp3"));
@@ -260,10 +270,6 @@ public class Ufo {
     public void activarLocura(int segundos) {
     	controlReversa = true;
     	segundosReversa = segundos;
-    }
-    //--------------------------------------------------------
-    public void locura() {
-    	controlReversa = true;
     }
     //--------------------------------------------------------
 }

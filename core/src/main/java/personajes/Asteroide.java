@@ -21,6 +21,16 @@ public class Asteroide extends Personajes {
     }
 	
 	@Override
+	public void realizarAccionEspecifica(Ufo ufo) {
+		ufo.damage();
+	}
+	
+	protected Sound getSonido() {
+		return hurt;
+	}
+	
+	/*
+	@Override
 	public boolean touch(Ufo ufo) {
         if (super.touch(ufo)) {
             if(ufo.damage()) {
@@ -31,4 +41,5 @@ public class Asteroide extends Personajes {
         }
         return false; // Retorna false si no ha tocado al UFO
     }
+    */
 }

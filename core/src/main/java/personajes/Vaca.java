@@ -21,6 +21,17 @@ public class Vaca extends Personajes {
     }
 	
 	@Override
+	public void realizarAccionEspecifica(Ufo ufo) {
+		ufo.sumarPuntos(10);
+	}
+	
+	@Override
+	protected Sound getSonido() {
+		return sonidoAbduction;
+	}
+	
+	/*
+	@Override
 	public boolean touch(Ufo ufo) {
         // Llamamos al método touch de Personajes para verificar si se superponen
         if (super.touch(ufo)) {
@@ -31,6 +42,7 @@ public class Vaca extends Personajes {
         }
         return false; // Retorna false si no ha tocado al UFO
     }
+	*/
 
 }
 

@@ -21,6 +21,17 @@ public class Yunque extends Personajes {
     }
 	
 	@Override
+	public void realizarAccionEspecifica(Ufo ufo) {
+		ufo.instaKill();
+	}
+	
+	@Override
+	protected Sound getSonido() {
+		return yunque;
+	}
+	
+	/*
+	@Override
 	public boolean touch(Ufo ufo) {
         if (super.touch(ufo)) {
             ufo.instaKill();
@@ -29,4 +40,5 @@ public class Yunque extends Personajes {
         }
         return false; // Retorna false si no ha tocado al UFO
     }
+    */
 }

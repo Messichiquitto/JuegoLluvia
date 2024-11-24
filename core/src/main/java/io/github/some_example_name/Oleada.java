@@ -49,7 +49,7 @@ public class Oleada {
             personajesPos.add(personajeFactory.crearZorro());
         } else if (probabilidad >= 5 && probabilidad < 7) {
             personajesPos.add(personajeFactory.crearVacaDorada());
-        } else if (probabilidad == 7) {
+        } else if (probabilidad >= 15 && probabilidad < 19) {
             personajesPos.add(personajeFactory.crearYunque());
         } else if (probabilidad >= 8 && probabilidad < 10) {
             personajesPos.add(personajeFactory.crearAlien());
@@ -86,6 +86,7 @@ public class Oleada {
                 personajesPos.removeIndex(i);
                 break;
             }
+            
         }
         return true; 
     }
@@ -116,6 +117,11 @@ public class Oleada {
             ufo.setEstrategia(interactuableP);
             ufo.ejecutarInteraccion();
         }
+        if (personaje instanceof Personajes) {
+        	personaje.realizarAccionEspecifica(ufo);
+        	personaje.interaccionSonido();
+        }
     }
+    
 }
 

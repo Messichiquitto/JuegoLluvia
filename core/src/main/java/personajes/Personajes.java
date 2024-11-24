@@ -22,6 +22,28 @@ public abstract class Personajes {
         this.textura = textura;
     }
 
+    public final void interactuarConUfo(Ufo ufo) {
+    	if (this.touch(ufo)) {
+    		this.interaccionSonido(); //Este sería el sonido que tienen en común todos los personajes
+    		this.actualizarTextura(); //Este sería la animación de la textura que tienen ciertos personajes
+    		this.realizarAccionEspecifica(ufo); //Esta sería la llamada a la acción específica del personaje
+    	}
+    }
+    
+    public void interaccionSonido() {
+    	if (getSonido() != null) {
+    		getSonido().play(0.5f);
+    	}
+    }
+    
+    private void actualizarTextura() {
+    	
+    }
+    
+    //Esto es la acción específica que realiza cada personaje
+    public abstract void realizarAccionEspecifica(Ufo ufo);
+    
+    
     public Rectangle getArea() {
     	return area;
     }
@@ -35,5 +57,7 @@ public abstract class Personajes {
     public boolean touch(Ufo ufo) {
     	return area.overlaps(ufo.getArea());
     }
+    
+    protected abstract Sound getSonido();
     
 }

@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import io.github.some_example_name.Ufo;
 
-public class Doctor extends Personajes {
+public class Doctor extends Personajes{
 	private Sound doctor;
 	
 	public Doctor(float x, float y, float ancho, float alto) {
@@ -22,13 +22,13 @@ public class Doctor extends Personajes {
     }
 	
 	@Override
-	public boolean touch(Ufo ufo) {
-        if (super.touch(ufo)) {
-        	ufo.activarLocura(150);
-            doctor.play();
-            return true; // Retorna true si ha tocado al UFO
-        }
-        return false; // Retorna false si no ha tocado al UFO
-    }
-
+	public void realizarAccionEspecifica(Ufo ufo) {
+		ufo.activarLocura(2);
+	}
+	
+	@Override
+	protected Sound getSonido() {
+		return doctor;
+	}
+	
 }   
