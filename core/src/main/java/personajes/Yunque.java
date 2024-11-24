@@ -30,15 +30,4 @@ public class Yunque extends Personajes {
 		return yunque;
 	}
 	
-	/*
-	@Override
-	public boolean touch(Ufo ufo) {
-        if (super.touch(ufo)) {
-            ufo.instaKill();
-            yunque.play(0.5f);
-            return true; // Retorna true si ha tocado al UFO
-        }
-        return false; // Retorna false si no ha tocado al UFO
-    }
-    */
 }

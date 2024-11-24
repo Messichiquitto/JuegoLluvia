@@ -29,17 +29,4 @@ public class Asteroide extends Personajes {
 		return hurt;
 	}
 	
-	/*
-	@Override
-	public boolean touch(Ufo ufo) {
-        if (super.touch(ufo)) {
-            if(ufo.damage()) {
-            	hurt.play(0.5f);
-                return true; // Retorna true si ha tocado al UFO
-            }
-            return true;
-        }
-        return false; // Retorna false si no ha tocado al UFO
-    }
-    */
 }

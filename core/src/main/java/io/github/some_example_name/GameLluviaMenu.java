@@ -8,6 +8,8 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 
 public class GameLluviaMenu extends Game {
+	private static GameLluviaMenu instance; //instancia estatica de la clase
+	
     private SpriteBatch batch;
     private BitmapFont font;
     private int higherScore;
@@ -16,6 +18,15 @@ public class GameLluviaMenu extends Game {
     //private EnemigoCriatura enemigo;
     private Ufo ufo; // Instancia del Ufo
     private boolean juegoEnCurso;
+    
+    private GameLluviaMenu() {}
+    
+    public static GameLluviaMenu getInstance() {
+    	if (instance == null) {
+    		instance = new GameLluviaMenu();
+    	}
+    	return instance;
+    }
 
     @Override
     public void create() {
@@ -47,6 +58,7 @@ public class GameLluviaMenu extends Game {
         batch.dispose();
         font.dispose();
         if (ufo != null) {
+        	ufo = null;
         }
     }
 
