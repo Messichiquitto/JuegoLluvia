@@ -14,19 +14,19 @@ public class Asteroide extends Personajes {
 		super(x, y, ancho, alto, new Texture(Gdx.files.internal("asteroide.png")));
 		hurt = Gdx.audio.newSound(Gdx.files.internal("hurt.mp3"));
 	}
-	
+	//--------------------------------------------------------------
 	@Override
     public void dibujar(SpriteBatch batch) {
 		batch.draw(getTextura(), getArea().x, getArea().y);
     }
-	
+	//--------------------------------------------------------------
 	@Override
 	public void realizarAccionEspecifica(Ufo ufo) {
 		ufo.damage();
 	}
-	
+	//--------------------------------------------------------------
 	protected Sound getSonido() {
 		return hurt;
 	}
-	
+	//--------------------------------------------------------------
 }

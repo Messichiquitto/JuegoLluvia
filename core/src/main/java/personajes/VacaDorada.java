@@ -21,13 +21,13 @@ public class VacaDorada extends Personajes {
         texturaVaca2 = new Texture(Gdx.files.internal("vacaDorada2.png"));
 		sonidoVacaDorada = Gdx.audio.newSound(Gdx.files.internal("sonidoVacaDorada.mp3"));
 	}
-	
+	//--------------------------------------------------------------
 	@Override
     public void dibujar(SpriteBatch batch) {
         actualizarTextura();
         batch.draw(texturaActual, getArea().x, getArea().y, 64, 39);
     }
-	
+	//--------------------------------------------------------------
 	protected void actualizarTextura() {
 	    stateTime += Gdx.graphics.getDeltaTime();
 
@@ -40,14 +40,15 @@ public class VacaDorada extends Personajes {
 	        stateTime = 0;
 	    }
 	}
-	
+	//--------------------------------------------------------------
 	@Override
 	public void realizarAccionEspecifica(Ufo ufo) {
 		ufo.sumarPuntos(500);
 	}
-	
+	//--------------------------------------------------------------
 	@Override
 	protected Sound getSonido() {
 		return sonidoVacaDorada;
 	}
+	//--------------------------------------------------------------
 }

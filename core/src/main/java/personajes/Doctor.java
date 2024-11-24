@@ -15,20 +15,20 @@ public class Doctor extends Personajes{
 		super(x, y, ancho, alto, new Texture(Gdx.files.internal("doctor.png")));
 		doctor = Gdx.audio.newSound(Gdx.files.internal("doctor.mp3"));
 	}
-	
+	//--------------------------------------------------------------
 	@Override
     public void dibujar(SpriteBatch batch) {
 		batch.draw(getTextura(), getArea().x, getArea().y);
     }
-	
+	//--------------------------------------------------------------
 	@Override
 	public void realizarAccionEspecifica(Ufo ufo) {
-		ufo.activarLocura(2);
+		ufo.activarLocura(2); //Tiempo en segundos
 	}
-	
+	//--------------------------------------------------------------
 	@Override
 	protected Sound getSonido() {
 		return doctor;
 	}
-	
+	//--------------------------------------------------------------
 }   

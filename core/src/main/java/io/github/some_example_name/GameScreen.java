@@ -27,9 +27,7 @@ public class GameScreen implements Screen {
         
         Sound hurtSound = Gdx.audio.newSound(Gdx.files.internal("hurt.mp3"));
         ufo = new Ufo(new Texture(Gdx.files.internal("ufo.png")), hurtSound);
-        
-        //Texture vaca = new Texture(Gdx.files.internal("vaca.png"));
-        //Texture asteroide = new Texture(Gdx.files.internal("asteroide.png"));
+       
         Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("sonidoAbduction.mp3")); 
         Music rainMusic = Gdx.audio.newMusic(Gdx.files.internal("theme.mp3"));
         rainMusic.setVolume(0.075f);

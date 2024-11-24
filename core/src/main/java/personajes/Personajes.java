@@ -13,6 +13,8 @@ import com.badlogic.gdx.utils.TimeUtils;
 
 import io.github.some_example_name.Ufo;
 
+/* Esta es la clase abstracta de Personajes. En ella se aplica el patrón Template Method.*/
+
 public abstract class Personajes {
     private Rectangle area;
     private Texture textura;
@@ -21,7 +23,7 @@ public abstract class Personajes {
         this.area = new Rectangle(x, y, ancho, alto);
         this.textura = textura;
     }
-
+    //--------------------------------------------------------------
     public final void interactuarConUfo(Ufo ufo) {
     	if (this.touch(ufo)) {
     		this.interaccionSonido(); //Este sería el sonido que tienen en común todos los personajes
@@ -29,35 +31,35 @@ public abstract class Personajes {
     		this.realizarAccionEspecifica(ufo); //Esta sería la llamada a la acción específica del personaje
     	}
     }
-    
+    //--------------------------------------------------------------
     public void interaccionSonido() {
     	if (getSonido() != null) {
     		getSonido().play(0.5f);
     	}
     }
-    
+    //--------------------------------------------------------------
     private void actualizarTextura() {
     	
     }
+    //--------------------------------------------------------------
     
     //Esto es la acción específica que realiza cada personaje
     public abstract void realizarAccionEspecifica(Ufo ufo);
-    
-    
+    //--------------------------------------------------------------
     public Rectangle getArea() {
     	return area;
     }
-    
+    //--------------------------------------------------------------
     public abstract void dibujar(SpriteBatch batch);
-    
+    //--------------------------------------------------------------
     public Texture getTextura() {
     	return textura;
     }
-   
+    //--------------------------------------------------------------
     public boolean touch(Ufo ufo) {
     	return area.overlaps(ufo.getArea());
     }
-    
+    //--------------------------------------------------------------
     protected abstract Sound getSonido();
-    
+    //--------------------------------------------------------------
 }

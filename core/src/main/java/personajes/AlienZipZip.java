@@ -26,17 +26,17 @@ public class AlienZipZip extends Personajes implements Interactuable {
         this.estrategia = new AlienStrategy();
 
     }
-    
+    //--------------------------------------------------------------
     public void interactuar(Ufo ufo) {
         estrategia.interactuar(ufo);
     }
-    
+    //--------------------------------------------------------------
     @Override
     public void dibujar(SpriteBatch batch) {
     	actualizarTextura();
     	batch.draw(texturaActual, getArea().x, getArea().y, 47, 63);
     }
-    
+    //--------------------------------------------------------------
     protected void actualizarTextura() {
 	    stateTime += Gdx.graphics.getDeltaTime();
 
@@ -49,14 +49,15 @@ public class AlienZipZip extends Personajes implements Interactuable {
 	        stateTime = 0;
 	    }
 	}
-    
+    //--------------------------------------------------------------
     @Override
     public void realizarAccionEspecifica(Ufo ufo) {
     	interactuar(ufo);
     }
-    
+    //--------------------------------------------------------------
     @Override
     protected Sound getSonido() {
     	return pickUpSound;
     }
+    //--------------------------------------------------------------
 }

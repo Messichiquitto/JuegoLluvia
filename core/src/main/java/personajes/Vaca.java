@@ -14,20 +14,21 @@ public class Vaca extends Personajes {
 		super(x, y, ancho, alto, new Texture(Gdx.files.internal("vaca.png")));
 		sonidoAbduction = Gdx.audio.newSound(Gdx.files.internal("sonidoAbduction.mp3"));
 	}
-	
+	//--------------------------------------------------------------
 	@Override
     public void dibujar(SpriteBatch batch) {
 		batch.draw(getTextura(), getArea().x, getArea().y);
     }
+	//--------------------------------------------------------------
 	@Override
 	public void realizarAccionEspecifica(Ufo ufo) {
 		ufo.sumarPuntos(10);
 	}
-	
+	//--------------------------------------------------------------
 	@Override
 	protected Sound getSonido() {
 		return sonidoAbduction;
 	}
-	
+	//--------------------------------------------------------------
 }
 

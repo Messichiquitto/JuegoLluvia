@@ -1,4 +1,4 @@
-package personajes;
+	package personajes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
@@ -14,20 +14,20 @@ public class Yunque extends Personajes {
 		super(x, y, ancho, alto, new Texture(Gdx.files.internal("yunque.png")));
 		yunque = Gdx.audio.newSound(Gdx.files.internal("yunque.mp3"));
 	}
-	
+	//--------------------------------------------------------------
 	@Override
     public void dibujar(SpriteBatch batch) {
 		batch.draw(getTextura(), getArea().x, getArea().y);
     }
-	
+	//--------------------------------------------------------------
 	@Override
 	public void realizarAccionEspecifica(Ufo ufo) {
 		ufo.instaKill();
 	}
-	
+	//--------------------------------------------------------------
 	@Override
 	protected Sound getSonido() {
 		return yunque;
 	}
-	
+	//--------------------------------------------------------------
 }

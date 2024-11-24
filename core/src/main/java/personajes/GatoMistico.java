@@ -18,26 +18,26 @@ public class GatoMistico extends Personajes implements Interactuable{
         gatoSound = Gdx.audio.newSound(Gdx.files.internal("pickUpSound.mp3"));
         this.estrategia = new GatoStrategy();
     }
-
+    //--------------------------------------------------------------
     @Override
     public void dibujar(SpriteBatch batch) {
         batch.draw(getTextura(), getArea().x, getArea().y);
     }
-
+    //--------------------------------------------------------------
     @Override
     public void realizarAccionEspecifica(Ufo ufo) {
         estrategia.interactuar(ufo);
     }
-
+    //--------------------------------------------------------------
     @Override
     protected Sound getSonido() {
         return gatoSound;
     }
-
+    //--------------------------------------------------------------
 	@Override
 	public void interactuar(Ufo ufo) {
 		estrategia.interactuar(ufo);
 		
 	}
-
+	//--------------------------------------------------------------
 }

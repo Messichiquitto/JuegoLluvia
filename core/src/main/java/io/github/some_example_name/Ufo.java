@@ -206,8 +206,6 @@ public class Ufo {
     }
     //--------------------------------------------------------	   	   
     public void actualizarMovimiento() { 
-    	//if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) ufo.x -= velx * Gdx.graphics.getDeltaTime();
-		//if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) ufo.x += velx * Gdx.graphics.getDeltaTime();
 		
 		if (controlReversa) {
 			if (movimiento) {

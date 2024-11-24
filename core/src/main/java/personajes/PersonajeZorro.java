@@ -18,29 +18,29 @@ public class PersonajeZorro extends Personajes implements Interactuable{
         sonidoZorro = Gdx.audio.newSound(Gdx.files.internal("pickUpSound.mp3"));
         this.estrategia = new ZorroStrategy();
 	}
-	
+	//--------------------------------------------------------------
 	@Override
 	public void dibujar(SpriteBatch batch) {
 		batch.draw(getTextura(), getArea().x, getArea().y);
 	}
-	
+	//--------------------------------------------------------------
 	@Override
 	public void realizarAccionEspecifica(Ufo ufo) {
 		estrategia.interactuar(ufo);
 	}
-	
+	//--------------------------------------------------------------
 	@Override
 	protected Sound getSonido() {
 		return sonidoZorro;
 	}
-	
+	//--------------------------------------------------------------
 	public void setEstrategia(Interactuable nuevaEstrategia) {
 		this.estrategia = nuevaEstrategia;
 	}
-
+	//--------------------------------------------------------------
 	@Override
 	public void interactuar(Ufo ufo) {
 		this.estrategia.interactuar(ufo);
-		
 	}
+	//--------------------------------------------------------------
 }
